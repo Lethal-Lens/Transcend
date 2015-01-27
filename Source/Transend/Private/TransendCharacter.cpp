@@ -17,6 +17,9 @@ ATransendCharacter::ATransendCharacter(const FObjectInitializer& ObjectInitializ
 	//set jump counter to 0
 	JumpCounter = 0;
 
+	//test line update
+
+
 	WeaponInventory.SetNum(2, false);
 
 	//let character sprint on startup
