@@ -14,13 +14,12 @@ ATransendPlayerController::ATransendPlayerController(const FObjectInitializer& O
 	}
 }
 
-
-void ATransendPlayerController::KilledPlayer()
+void ATransendPlayerController::KilledPlayer_Implementation()
 {
 	GetWorldTimerManager().SetTimer(this, &ATransendPlayerController::SpawnPlayer, 3.f, false);
 }
 
-void ATransendPlayerController::SpawnPlayer()
+void ATransendPlayerController::SpawnPlayer_Implementation()
 {
 	ATransendCharacter *Respawned = GetWorld()->SpawnActor<ATransendCharacter>(Spawner,RespawnPoint->GetActorLocation(),RespawnPoint->GetActorRotation());
 	if (Respawned)

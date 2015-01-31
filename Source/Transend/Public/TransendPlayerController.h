@@ -17,9 +17,10 @@ class TRANSEND_API ATransendPlayerController : public APlayerController
 
 public:
 
-	UFUNCTION(BlueprintCallable, Category = Death)
+	UFUNCTION(BlueprintNativeEvent, Category = Death)
 	void KilledPlayer();
 
+	UFUNCTION(BlueprintNativeEvent, Category = Death)
 	void SpawnPlayer();
 
 	TSubclassOf<ATransendCharacter> Spawner;
@@ -27,6 +28,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SpawnPoint)
 	AActor* RespawnPoint;
+
+	FTimerHandle MyHandle;
 	
 	
 };
