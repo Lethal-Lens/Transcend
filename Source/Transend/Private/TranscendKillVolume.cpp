@@ -2,12 +2,13 @@
 
 #include "Transend.h"
 #include "TranscendKillVolume.h"
+#include "TransendPlayerController.h"
 
 
 ATranscendKillVolume::ATranscendKillVolume(const FObjectInitializer& ObjectInitializer)
 : Super(ObjectInitializer)
 {
-	BrushComponent->OnComponentBeginOverlap.AddDynamic(this, &ATranscendKillVolume::OnCollision);
+	GetBrushComponent()->OnComponentBeginOverlap.AddDynamic(this, &ATranscendKillVolume::OnCollision);
 }
 
 void ATranscendKillVolume::OnCollision(AActor *OtherActor, UPrimitiveComponent *OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult)
@@ -16,8 +17,8 @@ void ATranscendKillVolume::OnCollision(AActor *OtherActor, UPrimitiveComponent *
 	
 	if (Character)
 	{
-		FVector Spawner = Character->RespawnPoint->GetActorLocation();
-		Character->SetActorLocation(Spawner);
-		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "I DIED!");
+		Character->Destroy();
+		ATransendPlayerController *PC = (ATransendPlayerController*)GetWorld()->GetFirstPlayerController();
+		PC->KilledPlayer();
 	}
 }

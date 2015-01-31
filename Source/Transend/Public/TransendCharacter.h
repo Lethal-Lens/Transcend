@@ -90,9 +90,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Weapon)
 	AWeapon* CurrentWeapon;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SpawnPoint)
-	AActor* RespawnPoint;
-
 	//Gives default inventory at the start of the game
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Inventory)
 	TArray<TSubclassOf<AWeapon>> DefaultWeaponInventory;
