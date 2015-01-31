@@ -61,6 +61,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterMovement)
 	float WalkingSpeed;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterMovement)
+	float JumpHoldTime;
+
 	//Incline on how fast the player will go from WalkingSpeed to SprintSpeed
 	//The higher the number, the faster the player will get to SprintSpeed. Lower the number, the slower the player will get to SprintSpeed
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CustomCharacterMovement)
@@ -86,6 +89,9 @@ public:
 	//holds the player's current weapon instance
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Weapon)
 	AWeapon* CurrentWeapon;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SpawnPoint)
+	AActor* RespawnPoint;
 
 	//Gives default inventory at the start of the game
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Inventory)

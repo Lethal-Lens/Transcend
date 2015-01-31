@@ -354,14 +354,14 @@ void ATransendCharacter::Jump()
 		{
 			//simply jump
 			bPressedJump = true;
-			JumpKeyHoldTime = 0.0f;
+			JumpKeyHoldTime = 0.1f;
 			JumpCounter++;
 		}
 		//On the second jump
 		if (JumpCounter == 1 && GetCharacterMovement()->IsFalling())
 		{
 			//simulate jump by launching character
-			JumpKeyHoldTime = 0.5;
+			JumpKeyHoldTime = 0.8f;
 			this->LaunchCharacter(FVector(0, 0, DoubleJumpHeight), false, true);
 			JumpCounter++;
 		}
