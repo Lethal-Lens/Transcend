@@ -17,6 +17,7 @@ void ATranscendKillVolume::OnCollision(AActor *OtherActor, UPrimitiveComponent *
 	
 	if (Character)
 	{
+		Character->CurrentWeapon->Destroy();
 		Character->Destroy();
 		ATransendPlayerController *PC = (ATransendPlayerController*)GetWorld()->GetFirstPlayerController();
 		PC->KilledPlayer();
