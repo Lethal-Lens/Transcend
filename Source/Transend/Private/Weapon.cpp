@@ -2,6 +2,7 @@
 
 #include "Transend.h"
 #include "TransendCharacter.h"
+#include "EnemyPawn.h"
 #include "Weapon.h"
 
 AWeapon::AWeapon(const FObjectInitializer& ObjectInitializer)
@@ -136,6 +137,14 @@ void AWeapon::ProcessInstantHit(const FHitResult &Impact, const FVector &Origin,
 	const FVector EndTrace = Origin + ShootDir * WeapConfig.WeaponRange;
 	const FVector EndPoint = Impact.GetActor() ? Impact.ImpactPoint : EndTrace;
 	DrawDebugLine(this->GetWorld(), Origin, Impact.TraceEnd, FColor::Black, true, 10000, 10.f);
+
+	AEnemyPawn *Enemy = Cast<AEnemyPawn>(Impact.GetActor());
+	if (Enemy)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, "YOU HIT AN ENEMY!!");
+		Enemy->Death();
+	}
+
 
 }
 

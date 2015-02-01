@@ -25,9 +25,8 @@ public:
 
 	TSubclassOf<ATransendCharacter> Spawner;
 
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SpawnPoint)
-	AActor* RespawnPoint;
+	AActor *RespawnPoint;
 
 	FTimerHandle MyHandle;
 	
