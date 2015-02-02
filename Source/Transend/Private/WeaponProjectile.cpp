@@ -2,6 +2,7 @@
 
 #include "Transend.h"
 #include "WeaponProjectile.h"
+#include "EnemyPawn.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 
 AWeaponProjectile::AWeaponProjectile(const FObjectInitializer& ObjectInitializer)
@@ -37,4 +38,13 @@ void AWeaponProjectile::OnHit(AActor* OtherActor, UPrimitiveComponent* OtherComp
 
 		Destroy();
 	}
+
+	AEnemyPawn *Enemy = Cast<AEnemyPawn>(OtherActor);
+
+	if (Enemy)
+	{
+		Enemy->Death();
+		Destroy();
+	}
+
 }
