@@ -14,6 +14,57 @@ ATransendPlayerController::ATransendPlayerController(const FObjectInitializer& O
 	}
 }
 
+void ATransendPlayerController::Tick(float DeltaSeconds)
+{
+	CurrentLevel = GetXPLevel();
+	LevelAbilities();
+	GetXPBarPercentage();
+}
+
+ELevelXP::Level ATransendPlayerController::GetXPLevel()
+{
+	if (CurrentXP < 100)
+	{
+		MinXP = 0;
+		MaxXP = 100;
+		CurrentLevel = ELevelXP::E_One;
+	}
+	if (CurrentXP >= 100 && CurrentXP < 200)
+	{
+		MinXP = 100;
+		MaxXP = 200;
+		CurrentLevel = ELevelXP::E_Two;
+	}
+	return CurrentLevel;
+}
+
+void ATransendPlayerController::LevelAbilities()
+{
+
+	ATransendCharacter *Character = (ATransendCharacter*)GetWorld()->GetFirstPlayerController()->GetPawn();
+	if (Character)
+	{
+		switch (CurrentLevel)
+		{
+		case ELevelXP::E_One:
+			Character->bDoubleJumpEnabled = false;
+			Character->bSprintEnabled = false;
+			break;
+		case ELevelXP::E_Two:
+			Character->bDoubleJumpEnabled = true;
+			Character->bSprintEnabled = true;
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+void ATransendPlayerController::GetXPBarPercentage()
+{
+	CurrentPercentage = FMath::GetRangePct(MinXP, MaxXP, CurrentXP);
+}
+
 void ATransendPlayerController::KilledPlayer_Implementation()
 {
 	GetWorldTimerManager().SetTimer(this, &ATransendPlayerController::SpawnPlayer, 3.f, false);

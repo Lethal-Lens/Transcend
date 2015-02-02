@@ -94,7 +94,6 @@ void ATransendCharacter::BeginPlay()
 	Super::BeginPlay();
 	//Equip Default Weapons at the start of the game
 	GiveDefaultWeapons();
-	CurrentLevel = GetXPLevel();
 }
 
 // START OF FIRING WEAPON ON HOLD (IN CASE THERE IS RAPID FIRE)
@@ -325,8 +324,6 @@ void ATransendCharacter::Tick(float DeltaSeconds)
 			GetCharacterMovement()->MaxWalkSpeed = WalkingSpeed;
 		}
 	}
-
-	LevelAbilities();
 }
 
 void ATransendCharacter::StartCrouch()
@@ -460,35 +457,5 @@ void ATransendCharacter::MoveRight(float Value)
 {
 	// add movement in that direction
 	AddMovementInput(FVector(0.f,-1.f,0.f), Value);
-}
-
-ELevelXP::Level ATransendCharacter::GetXPLevel()
-{
-	if (CurrentXP < 100)
-	{
-		CurrentLevel = ELevelXP::E_One;
-	}
-	if (CurrentXP >= 100 && CurrentXP < 200)
-	{
-		CurrentLevel = ELevelXP::E_Two;
-	}
-	return CurrentLevel;
-}
-
-void ATransendCharacter::LevelAbilities()
-{
-	switch (CurrentLevel)
-	{
-	case ELevelXP::E_One:
-		bDoubleJumpEnabled = false;
-		bSprintEnabled = false;
-		break;
-	case ELevelXP::E_Two:
-		bDoubleJumpEnabled = true;
-		bSprintEnabled = true;
-		break;
-	default:
-		break;
-	}
 }
 

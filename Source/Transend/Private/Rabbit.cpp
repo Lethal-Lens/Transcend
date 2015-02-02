@@ -15,6 +15,7 @@ void ARabbit::Death()
 	Super::Death();
 
 	ATransendPlayerController *PC = (ATransendPlayerController*)GetWorld()->GetFirstPlayerController();
+	PC->CurrentXP += 25; //// FOR TESTING!
 	PC->RespawnPoint = SpawnLocation;
 	PlayEnemySound(DeathSound);
 	Destroy();
