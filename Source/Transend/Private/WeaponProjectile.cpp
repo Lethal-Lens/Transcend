@@ -12,7 +12,7 @@ AWeaponProjectile::AWeaponProjectile(const FObjectInitializer& ObjectInitializer
 	CollisionComp = ObjectInitializer.CreateDefaultSubobject<USphereComponent>(this, TEXT("SphereComp"));
 	CollisionComp->InitSphereRadius(5.0f);
 	CollisionComp->BodyInstance.SetCollisionProfileName("DefaultProjectile");
-	CollisionComp->OnComponentHit.AddDynamic(this, &AWeaponProjectile::OnHit);		// set up a notification for when this component hits something blocking
+	CollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AWeaponProjectile::OnHit);		// set up a notification for when this component hits something blocking
 
 	// Players can't walk on it
 	CollisionComp->SetWalkableSlopeOverride(FWalkableSlopeOverride(WalkableSlope_Unwalkable, 0.f));
@@ -29,7 +29,7 @@ AWeaponProjectile::AWeaponProjectile(const FObjectInitializer& ObjectInitializer
 	InitialLifeSpan = 3.0f;
 }
 
-void AWeaponProjectile::OnHit(AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+void AWeaponProjectile::OnHit(AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& Hit)
 {
 	// Only add impulse and destroy projectile if we hit a physics
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
@@ -45,6 +45,7 @@ void AWeaponProjectile::OnHit(AActor* OtherActor, UPrimitiveComponent* OtherComp
 	{
 		Enemy->Death();
 		Destroy();
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "IM AN ENEMY");
 	}
 
 }
