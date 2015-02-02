@@ -30,7 +30,7 @@ ATransendCharacter::ATransendCharacter(const FObjectInitializer& ObjectInitializ
 	CameraBoom->AttachTo(RootComponent);
 	CameraBoom->bAbsoluteRotation = true; // Rotation of the character should not affect rotation of boom
 	CameraBoom->TargetArmLength = 1000.f;
-	CameraBoom->SocketOffset = FVector(100.f,100.f,75.f);
+	CameraBoom->SocketOffset = FVector(0.f,100.f,200.f);
 	CameraBoom->RelativeRotation = FRotator(0.f,180.f,0.f);
 
 	// Create a camera and attach to boom
@@ -38,7 +38,7 @@ ATransendCharacter::ATransendCharacter(const FObjectInitializer& ObjectInitializ
 	SideViewCameraComponent->AttachTo(CameraBoom, USpringArmComponent::SocketName);
 	SideViewCameraComponent->bUsePawnControlRotation = false; // We don't want the controller rotating the camera
 	SideViewCameraComponent->ProjectionMode = ECameraProjectionMode::Orthographic;
-	SideViewCameraComponent->OrthoWidth = 1500.f;
+	SideViewCameraComponent->OrthoWidth = 2000.f;
 
 	// Configure character movement
 	GetCharacterMovement()->bOrientRotationToMovement = true; // Face in the direction we are moving..
