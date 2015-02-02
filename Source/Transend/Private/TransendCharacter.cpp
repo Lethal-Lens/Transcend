@@ -87,13 +87,14 @@ void ATransendCharacter::SetupPlayerInputComponent(class UInputComponent* InputC
 	InputComponent->BindAxis("MoveRight", this, &ATransendCharacter::MoveRight);
 }
 
-
+//At the beginning of the game
 void ATransendCharacter::BeginPlay()
 {
 
 	Super::BeginPlay();
 	//Equip Default Weapons at the start of the game
 	GiveDefaultWeapons();
+	CurrentLevel = GetXPLevel();
 }
 
 // START OF FIRING WEAPON ON HOLD (IN CASE THERE IS RAPID FIRE)
@@ -324,7 +325,8 @@ void ATransendCharacter::Tick(float DeltaSeconds)
 			GetCharacterMovement()->MaxWalkSpeed = WalkingSpeed;
 		}
 	}
-	//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "SprintingSpeed" + FString::FromInt(GetCharacterMovement()->MaxWalkSpeed));
+
+	LevelAbilities();
 }
 
 void ATransendCharacter::StartCrouch()
@@ -346,30 +348,55 @@ void ATransendCharacter::Jump()
 {
 	Super::Jump();
 
-	//as long as JumpCounter is less than 2
-	if (JumpCounter < 2)
+	//if double jump is enabled (Level 2)
+	if (bDoubleJumpEnabled)
 	{
-		//On teh first jump
-		if (JumpCounter == 0 && !GetCharacterMovement()->IsFalling())
+		//as long as JumpCounter is less than 2
+		if (JumpCounter < 2)
 		{
-			//simply jump
-			bPressedJump = true;
-			JumpKeyHoldTime = 0.1f;
-			JumpCounter++;
+			//On the first jump
+			if (JumpCounter == 0 && !GetCharacterMovement()->IsFalling())
+			{
+				//simply jump
+				bPressedJump = true;
+				JumpKeyHoldTime = 0.1f;
+				JumpCounter++;
+			}
+			//On the second jump
+			if (JumpCounter == 1 && GetCharacterMovement()->IsFalling())
+			{
+				//simulate jump by launching character
+				JumpKeyHoldTime = 0.8f;
+				this->LaunchCharacter(FVector(0, 0, DoubleJumpHeight), false, true);
+				JumpCounter++;
+			}
 		}
-		//On the second jump
-		if (JumpCounter == 1 && GetCharacterMovement()->IsFalling())
+		//if greater than 2
+		else
 		{
-			//simulate jump by launching character
-			JumpKeyHoldTime = 0.8f;
-			this->LaunchCharacter(FVector(0, 0, DoubleJumpHeight), false, true);
-			JumpCounter++;
+			StopJumping();
 		}
 	}
-	//if greater than 2
+	//if double jump is disabled
 	else
 	{
-		StopJumping();
+		//as long as JumpCounter is less than 1
+		if (JumpCounter < 1)
+		{
+			//On the first jump
+			if (JumpCounter == 0 && !GetCharacterMovement()->IsFalling())
+			{
+				//simply jump
+				bPressedJump = true;
+				JumpKeyHoldTime = 0.1f;
+				JumpCounter++;
+			}
+		}
+		//if greater than 2
+		else
+		{
+			StopJumping();
+		}
 	}
 
 }
@@ -390,8 +417,8 @@ void ATransendCharacter::OnLanded(const FHitResult& Hit)
 
 void ATransendCharacter::StartSprint()
 {
-	//if character can sprint and not on cooldown
-	if (bCanSprint && !bSprintCooldown)
+	//if character can sprint and not on cooldown and if sprinting is enabled (Level 2)
+	if (bCanSprint && !bSprintCooldown && bSprintEnabled)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "Sprinting");
 		bIsSprinting = true;
@@ -402,8 +429,8 @@ void ATransendCharacter::StartSprint()
 
 void ATransendCharacter::StopSprint()
 {
-	//as long as the character isnt on cooldown
-	if (!bSprintCooldown)
+	//as long as the character isnt on cooldown and if sprinting is enabled (Level 2)
+	if (!bSprintCooldown && bSprintEnabled)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "Not Sprinting");
 		bIsSprinting = false;
@@ -433,5 +460,35 @@ void ATransendCharacter::MoveRight(float Value)
 {
 	// add movement in that direction
 	AddMovementInput(FVector(0.f,-1.f,0.f), Value);
+}
+
+ELevelXP::Level ATransendCharacter::GetXPLevel()
+{
+	if (CurrentXP < 100)
+	{
+		CurrentLevel = ELevelXP::E_One;
+	}
+	if (CurrentXP >= 100 && CurrentXP < 200)
+	{
+		CurrentLevel = ELevelXP::E_Two;
+	}
+	return CurrentLevel;
+}
+
+void ATransendCharacter::LevelAbilities()
+{
+	switch (CurrentLevel)
+	{
+	case ELevelXP::E_One:
+		bDoubleJumpEnabled = false;
+		bSprintEnabled = false;
+		break;
+	case ELevelXP::E_Two:
+		bDoubleJumpEnabled = true;
+		bSprintEnabled = true;
+		break;
+	default:
+		break;
+	}
 }
 

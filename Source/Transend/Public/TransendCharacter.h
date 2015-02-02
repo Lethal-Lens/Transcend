@@ -4,6 +4,24 @@
 #include "Weapon.h"
 #include "TransendCharacter.generated.h"
 
+
+
+//ENUM DECLARATION for the CHARACTER XP LEVEL SYSTEM
+UENUM(BlueprintType)
+namespace ELevelXP
+{
+	enum Level
+	{
+		E_One			UMETA(DisplayName = "One"),
+		E_Two			UMETA(DisplayName = "Two"),
+		E_Three			UMETA(DisplayName = "Three"),
+		E_Four			UMETA(DisplayName = "Four"),
+		E_Five			UMETA(DisplayName = "Five"),
+		E_Six			UMETA(DisplayName = "Six"),
+	};
+}
+
+
 UCLASS(config=Game)
 class ATransendCharacter : public ACharacter
 {
@@ -21,6 +39,22 @@ class ATransendCharacter : public ACharacter
 	class USpringArmComponent* CameraBoom;
 
 public:
+
+	//enum object for Level XP
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = XPLeveling)
+	TEnumAsByte<ELevelXP::Level> CurrentLevel;
+
+	//Current XP for the character level
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = XPLeveling)
+	int32 CurrentXP;
+
+	//Max XP for the current character level
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = XPLeveling)
+	int32 MaxXP;
+
+	ELevelXP::Level GetXPLevel();
+
+	void LevelAbilities();
 
 	/** Called for side to side input */
 	void MoveRight(float Val);
@@ -47,6 +81,11 @@ public:
 	//value to adjust double jump height
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CustomCharacterMovement)
 	float DoubleJumpHeight;
+
+	//checks if the player is high enough level to double jump
+	bool bDoubleJumpEnabled;
+
+	bool bSprintEnabled;
 
 	//bool checks to see if sprinting and if cooling down
 	bool bCanSprint;
