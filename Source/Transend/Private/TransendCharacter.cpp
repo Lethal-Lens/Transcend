@@ -30,7 +30,7 @@ ATransendCharacter::ATransendCharacter(const FObjectInitializer& ObjectInitializ
 	CameraBoom->AttachTo(RootComponent);
 	CameraBoom->bAbsoluteRotation = true; // Rotation of the character should not affect rotation of boom
 	CameraBoom->TargetArmLength = 1000.f;
-	CameraBoom->SocketOffset = FVector(0.f,100.f,200.f);
+	CameraBoom->SocketOffset = FVector(0.f,100.f,300.f);
 	CameraBoom->RelativeRotation = FRotator(0.f,180.f,0.f);
 
 	// Create a camera and attach to boom
