@@ -83,7 +83,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = XPLeveling)
 	int32 CurrentXP;
 
-
 	//Min XP for the current character level
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = XPLeveling)
 	int32 MinXP;
@@ -96,7 +95,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = XPLeveling)
 	float CurrentPercentage;
 
-	//returns the XP level of the character
+	//returns the XP level of the character. Clamps between XP numbers determing the level of player
 	ELevelXP::Level GetXPLevel();
 
 	//Tells the Pawn what abilities it may have
@@ -105,12 +104,11 @@ public:
 	//calculates the XP bar percentage
 	void GetXPBarPercentage();
 
-
-	//Function that the player has been killed and starts timer
+	//Function that the player has been killed and starts timer(native event for specific level calls)
 	UFUNCTION(BlueprintNativeEvent, Category = Death)
 	void KilledPlayer();
 
-	//Spawns the player into the map
+	//Spawns the player into the map(native event for specific level calls)
 	UFUNCTION(BlueprintNativeEvent, Category = Death)
 	void SpawnPlayer();
 

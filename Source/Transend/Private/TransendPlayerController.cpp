@@ -7,6 +7,7 @@
 ATransendPlayerController::ATransendPlayerController(const FObjectInitializer& ObjectInitializer)
 : Super(ObjectInitializer)
 {
+	//Constructor helper to store the correct TSubclassOf variable for respawning the player into the map after death
 	static ConstructorHelpers::FObjectFinder<UBlueprint> PlayerPawnBP(TEXT("Blueprint'/Game/Blueprints/MyCharacter.MyCharacter'"));
 	if (PlayerPawnBP.Object)
 	{
@@ -42,18 +43,27 @@ void ATransendPlayerController::LevelAbilities()
 {
 
 	ATransendCharacter *Character = (ATransendCharacter*)GetWorld()->GetFirstPlayerController()->GetPawn();
+	//if the character exists
 	if (Character)
 	{
+		//switch statement for the CurrentLevel of the player
 		switch (CurrentLevel)
 		{
+			//Level 01
 		case ELevelXP::E_01:
+			//Turn off the double jump and Sprint
 			Character->bDoubleJumpEnabled = false;
 			Character->bSprintEnabled = false;
 			break;
+
+			//Level 02
 		case ELevelXP::E_02:
+			//turn on the double jump and Sprint
 			Character->bDoubleJumpEnabled = true;
 			Character->bSprintEnabled = true;
 			break;
+
+			//else
 		default:
 			break;
 		}
