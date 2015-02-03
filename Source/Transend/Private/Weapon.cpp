@@ -22,7 +22,7 @@ void AWeapon::Fire()
 	{
 		//fire weapon
 		bWantsToFire = true;
-		//TIMER HANDLER FOR TIME BETWEEN SHOTS(WILL BE IN NEXT BUILD)
+		//TIMER HANDLER FOR TIME BETWEEN SHOTS
 		FTimerHandle MyHandle;
 		switch (ProjType)
 		{
@@ -109,10 +109,12 @@ void AWeapon::ReloadAmmo()
 			CurrentAmmo -= WeapConfig.MaxClip;
 			CurrentClip += WeapConfig.MaxClip;
 		}
+		PlayWeaponSound(ReloadStartSound);
 	}
 	else
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Blue, "No Ammo Left");
+		PlayWeaponSound(EmptySound);
 	}
 }
 

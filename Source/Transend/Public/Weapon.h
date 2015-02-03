@@ -93,6 +93,18 @@ class TRANSEND_API AWeapon : public AActor
 	UPROPERTY(EditDefaultsOnly, Category = Config)
 	USoundCue* FireSound;
 
+	//Reload Start Sound for weapon
+	UPROPERTY(EditDefaultsOnly, Category = Config)
+	USoundCue* ReloadStartSound;
+
+	//Reload Finish Sound for weapon
+	UPROPERTY(EditDefaultsOnly, Category = Config)
+	USoundCue* ReloadFinishSound;
+
+	//Reload Finish Sound for weapon
+	UPROPERTY(EditDefaultsOnly, Category = Config)
+	USoundCue* EmptySound;
+
 	//Weapon Projectile(Like rocket, grenade, etc)
 	UPROPERTY(EditDefaultsOnly, Category = Config)
 	TSubclassOf<AWeaponProjectile> WeaponProj;

@@ -27,13 +27,13 @@ ELevelXP::Level ATransendPlayerController::GetXPLevel()
 	{
 		MinXP = 0;
 		MaxXP = 100;
-		CurrentLevel = ELevelXP::E_One;
+		CurrentLevel = ELevelXP::E_01;
 	}
 	if (CurrentXP >= 100 && CurrentXP < 200)
 	{
 		MinXP = 100;
 		MaxXP = 200;
-		CurrentLevel = ELevelXP::E_Two;
+		CurrentLevel = ELevelXP::E_02;
 	}
 	return CurrentLevel;
 }
@@ -46,11 +46,11 @@ void ATransendPlayerController::LevelAbilities()
 	{
 		switch (CurrentLevel)
 		{
-		case ELevelXP::E_One:
+		case ELevelXP::E_01:
 			Character->bDoubleJumpEnabled = false;
 			Character->bSprintEnabled = false;
 			break;
-		case ELevelXP::E_Two:
+		case ELevelXP::E_02:
 			Character->bDoubleJumpEnabled = true;
 			Character->bSprintEnabled = true;
 			break;
