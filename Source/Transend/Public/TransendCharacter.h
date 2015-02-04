@@ -58,6 +58,12 @@ public:
 	bool bCanSprint;
 	bool bSprintCooldown;
 	bool bIsSprinting;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CustomCharacterMovement)
+	bool bCanCrouch;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CustomCharacterMovement)
+	bool bNowJumping;
 	
 	//Sets the sprint speed
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CustomCharacterMovement)
