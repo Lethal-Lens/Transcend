@@ -5,6 +5,17 @@
 #include "TransendCharacter.generated.h"
 
 
+UENUM(BlueprintType)
+enum EAnimStates
+{
+	E_Idle			UMETA(DisplayName = "Idle"),
+	E_Walking		UMETA(DisplayName = "Walking"),
+	E_Crouching		UMETA(DisplayName = "Crouching"),
+	E_Firing		UMETA(DisplayName = "Firing"),
+	E_Reloading		UMETA(DisplayName = "Reloading"),
+	E_Jumping		UMETA(DisplayName = "Jumping"),
+};
+
 UCLASS(config=Game)
 class ATransendCharacter : public ACharacter
 {
@@ -26,6 +37,8 @@ public:
 	/** Called for side to side input */
 	void MoveRight(float Val);
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CustomCharacterMovement)
+	TEnumAsByte<EAnimStates> CurrentState;
 
 	virtual void Jump() override;
 	virtual void StopJumping() override;
@@ -38,11 +51,11 @@ public:
 	void StopSprintCooldown();
 
 	//start of crouch
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, Category = Crouching)
 	virtual void StartCrouch();
 
 	//end of crouch
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, Category = Crouching)
 	virtual void EndCrouch();
 
 	//value to adjust double jump height

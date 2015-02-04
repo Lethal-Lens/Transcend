@@ -328,19 +328,24 @@ void ATransendCharacter::Tick(float DeltaSeconds)
 
 void ATransendCharacter::StartCrouch()
 {
-
-	GetCapsuleComponent()->SetCapsuleHalfHeight(48.0f);				//make the capsulecollision half the height of the character
-	GetMesh()->SetRelativeLocation(FVector(0, 0, -49));				//set the mesh with the new center alignment of the capsulecollision
-	this->LaunchCharacter(FVector(0, 0, -48), false, false);	//launch the character down to the ground to ensure crouch is to the ground *bug fix*
-	bCanCrouch = true;
+	if (!bCanCrouch)
+	{
+		bCanCrouch = true;
+		GetCapsuleComponent()->SetCapsuleHalfHeight(48.0f);				//make the capsulecollision half the height of the character
+		GetMesh()->SetRelativeLocation(FVector(0, 0, -49));				//set the mesh with the new center alignment of the capsulecollision
+		this->LaunchCharacter(FVector(0, 0, -48), false, false);	//launch the character down to the ground to ensure crouch is to the ground *bug fix*
+	}
 }
 
 void ATransendCharacter::EndCrouch()
 {
-	GetCapsuleComponent()->SetCapsuleHalfHeight(96.0f);					//sets capsulecollision to normal height
-	this->LaunchCharacter(FVector(0, 0, 48), false, false);			//launches character back on top of the mesh *bug fix*
-	GetMesh()->SetRelativeLocation(FVector(0, 0, -97));					//set the mesh location with the center of the capsule collision
-	bCanCrouch = false;
+	if (bCanCrouch)
+	{
+		bCanCrouch = false;
+		GetCapsuleComponent()->SetCapsuleHalfHeight(96.0f);					//sets capsulecollision to normal height
+		this->LaunchCharacter(FVector(0, 0, 48), false, false);			//launches character back on top of the mesh *bug fix*
+		GetMesh()->SetRelativeLocation(FVector(0, 0, -97));					//set the mesh location with the center of the capsule collision
+	}
 }
 
 void ATransendCharacter::Jump()
