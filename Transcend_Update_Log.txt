@@ -1,4 +1,4 @@
-TRANSEND - BUILD 12/30/2014
+TRANSEND - BUILD 12/30/2014 - UPDATE FROM CHAD
 
 CHANGES:
 
@@ -39,7 +39,7 @@ TO LOAD THE GAME FROM VISUAL STUDIO:
 ------------------------------------------------------------------------------------------------------
 
 
-TRANSEND - BUILD 01/06/2014
+TRANSEND - BUILD 01/06/2014 - UPDATE FROM CHAD
 
 CHANGES:
 
@@ -87,7 +87,7 @@ UPCOMING UPDATES:
 
 -----------------------------------------------------------------------------------------
 
-TRANSEND - BUILD 01/30/2014
+TRANSEND - BUILD 01/30/2014 - UPDATE FROM CHAD
 
 CHANGES:
 *Fixed XP level 1 jump height
@@ -111,3 +111,32 @@ UPCOMING UPDATES:
 *Melee Fire Functionality
 *Player Health
 *HUD UMG Programming
+
+------------------------------------------------------------------------------------------
+
+TRANSEND - BUILD 02/03/2015 - UPDATE FROM CHAD
+
+CHANGES:
+*Fixed XP Levels to enable double jump and sprinting on Level 2 XP(For testing)
+
+NEW ADDITIONS:
+*Added the Animation Starter Pack to the project for testing. The mannequin interacts with the Walking, Crouching, and Jumping(Jumping is slightly bugged)
+
+*Added all 50 Level change Enums.
+*Weapon Line Trace Identification is no longer a WIP
+*Projectile Identification is no longer a WIP
+*Added Reload Sounds(WIP until Animations are done)
+*Added Checkpoint Implementation(Alpha)
+*Added Respawn Once Dead
+*Added Camera dislocation upon falling into death hole
+*Added UMG Death Screen
+*Player Health Code is in progress
+*Weapon Clip and Ammo Depletion is no longer a WIP
+
+ABOUT ADDITIONS:
+*Animation starter Pack is something just for the weapon aiming and the AI work until the Character Mesh and Animations come in(Paul, go ahead and begin work with the AI :) )
+*50 Level Enums are present, but only TWO levels do anything and are measured at the moment. Once the AI and Level design is ready, we can start talking numbers on balance for the XP Levels
+*Reload Sounds are there, but need animation states for the Start Sound and finished sound for the reloading. If you wish to check out the reload sound now, BE SURE to ONLY use the Reload Start Sound.
+*Checkpoint Implementation is in Alpha. In order to make the Checkpoints work, the developer must add a Rabbit_BP onto the scene, and use level blueprint to ensure the start of the game to add the level checkpoints to the Rabbit blueprint. The checkpoint storage should be called "Spawn Location".
+*Respawn Once Dead only works if the developer adds a "Transcend Kill Volume" to the scene. If the developer wants to dislocate the camera from the character, they must add a trigger volume and use Level BP to dislocate it(See level_1 Level blueprint for reference)
+*UMG Death Screen is just a simple "You are dead, Loading to current checkpoint". If the UI Designer wishes to update this, you may. the Widget blueprint is called "Death_Screen". located in Blueprints->UI
