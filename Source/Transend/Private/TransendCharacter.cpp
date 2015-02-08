@@ -96,6 +96,24 @@ void ATransendCharacter::BeginPlay()
 	GiveDefaultWeapons();
 }
 
+void ATransendCharacter::SetHealthBarUpdate()
+{
+	CurrentHealthPercentage = FMath::GetRangePct(0, HealthMax, Health);
+}
+
+int32 ATransendCharacter::GetHealth()
+{
+	if (Health <= 0)
+	{
+		Health = 0;
+	}
+	else
+	{
+		Health = Health;
+	}
+	return Health;
+}
+
 // START OF FIRING WEAPON ON HOLD (IN CASE THERE IS RAPID FIRE)
 void ATransendCharacter::StartFire()
 {
@@ -299,6 +317,7 @@ void ATransendCharacter::EquipWeapon(AWeapon *Weapon)
 
 void ATransendCharacter::Tick(float DeltaSeconds)
 {
+
 	//if the player is sprinting
 	if (bIsSprinting)
 	{ 
@@ -324,6 +343,8 @@ void ATransendCharacter::Tick(float DeltaSeconds)
 			GetCharacterMovement()->MaxWalkSpeed = WalkingSpeed;
 		}
 	}
+	Health = GetHealth();
+	SetHealthBarUpdate();
 }
 
 void ATransendCharacter::StartCrouch()

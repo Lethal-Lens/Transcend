@@ -67,6 +67,24 @@ public:
 
 	bool bSprintEnabled;
 
+	//Current Health of the Character
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Health)
+	int32 Health;
+
+	//Maximum Health for the Character
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Health)
+	int32 HealthMax;
+
+	//Returns The percentage of health for the health bar UI
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Health)
+	float CurrentHealthPercentage;
+
+	//function that updates the health
+	void SetHealthBarUpdate();
+
+	//returns the amount of health 
+	int32 GetHealth();
+
 	//bool checks to see if sprinting and if cooling down
 	bool bCanSprint;
 	bool bSprintCooldown;
