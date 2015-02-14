@@ -87,6 +87,8 @@ void ATransendCharacter::SetupPlayerInputComponent(class UInputComponent* InputC
 	InputComponent->BindAxis("MoveRight", this, &ATransendCharacter::MoveRight);
 }
 
+//check
+
 //At the beginning of the game
 void ATransendCharacter::BeginPlay()
 {
