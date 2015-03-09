@@ -6,11 +6,26 @@
 AEnemyPawn::AEnemyPawn(const FObjectInitializer& ObjectInitializer)
 : Super(ObjectInitializer)
 {
+	PrimaryActorTick.bCanEverTick = true;
+
 	Mesh = ObjectInitializer.CreateDefaultSubobject<USkeletalMeshComponent>(this, TEXT("Mesh"));
 	RootComponent = Mesh;
 
 	BoxCollision = ObjectInitializer.CreateDefaultSubobject<UBoxComponent>(this, TEXT("BoxCollision"));
 	BoxCollision->AttachTo(RootComponent);
+
+	MaxHP = 100;
+	CurrentHP = MaxHP;
+}
+
+void AEnemyPawn::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+
+	if (CurrentHP <= 0)
+	{
+		Death();
+	}
 }
 
 void AEnemyPawn::Death()

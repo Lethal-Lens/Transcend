@@ -13,6 +13,8 @@ class TRANSEND_API AEnemyPawn : public APawn
 {
 	GENERATED_UCLASS_BODY()
 
+
+public:
 	//Skeletal Mesh for the Pawn
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Mesh)
 	USkeletalMeshComponent *Mesh;
@@ -20,6 +22,14 @@ class TRANSEND_API AEnemyPawn : public APawn
 	//Collision for the AI
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Collision)
 	UBoxComponent *BoxCollision;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health")
+	uint8 CurrentHP;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Health")
+	uint8 MaxHP;
+
+	virtual void Tick(float DeltaSeconds);
 
 	//Function for base death data
 	virtual void Death();

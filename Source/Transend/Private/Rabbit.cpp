@@ -21,3 +21,8 @@ void ARabbit::Death()
 	Destroy();
 
 }
+
+void ARabbit::Tick(float DeltaSeconds)
+{
+
+}

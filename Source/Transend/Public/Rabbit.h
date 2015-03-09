@@ -14,6 +14,8 @@ class TRANSEND_API ARabbit : public AEnemyPawn
 {
 	GENERATED_UCLASS_BODY()
 
+
+public:
 	UPROPERTY(EditDefaultsOnly, Category = Sound)
 	USoundCue *DeathSound;
 
@@ -21,5 +23,10 @@ class TRANSEND_API ARabbit : public AEnemyPawn
 	AActor *SpawnLocation;
 
 	virtual void Death() override;
+
+	virtual void Tick(float DeltaSeconds);
+
+	AEnemyPawn* BaseClass;
+
 	
 };
